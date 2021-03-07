@@ -1,0 +1,8 @@
+\babel@toc {spanish}{}
+\contentsline {section}{\numberline {1}Introdcción}{3}{}%
+\contentsline {section}{\numberline {2}Base de Datos HairEyeColor}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Descripción del conjunto de datos}{3}{}%
+\contentsline {subsection}{\numberline {2.2}Estadística descripitiva de una variable}{4}{}%
+\contentsline {subsection}{\numberline {2.3}Estadística descripitiva de dos variable}{5}{}%
+\contentsline {section}{\numberline {3}Conclusión}{6}{}%
+\contentsline {section}{\numberline {4}Referencias}{7}{}%
