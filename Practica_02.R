@@ -1,7 +1,70 @@
-
 #Base de Datos "HairEyeColor"
 data(HairEyeColor)
 head(HairEyeColor)
+
+
+#Grafica de barras (Por cabello, color de ojos y Sexo)
+data(HairEyeColor)
+head(HairEyeColor)
+
+male <- HairEyeColor[, ,"Male"]
+
+# Subtabla para las mujeres
+female <- HairEyeColor[, ,"Female"]
+data <- as.table(male + female)
+data
+
+colnames(data) <- c("Marrón","Azul","Avellana", "Verdes")
+rownames(data) <- c("Negro","Marrón","Pelirrojo","Rubio")
+
+# otra forma de hacerlos es a través de dimnames
+dimnames(data) <- list(
+  Pelo <- c("Negro","Marrón","Pelirrojo","Rubio"),
+  Ojos <- c("Marrón","Azul","Avellana", "Verdes")
+)
+data
+
+plot(data, col = c("lightblue"), 
+     main = "Diagrama de mosaico de la tabla bidimensional de frecuencias\n  de colores de cabello y ojos")
+
+
+sum(data)
+
+rowSums(data)
+
+prop.table(rowSums(data))
+
+colSums(data)
+
+prop.table(colSums(data))
+
+barplot(prop.table(colSums(data)),
+        main = "Frecuencias relativas\n de colores de ojos", 
+        col = c("burlywood4","lightblue","orange3","lightgreen"),
+        ylim = c(0,0.4))
+
+barplot(prop.table(rowSums(data)),
+        main = "Frecuencias relativas\n de color de cabello",
+        col = c("black","burlywood4","red","yellow"),
+        ylim = c(0,0.4))
+
+round(prop.table(data), 3)
+
+round(prop.table(data, margin = 1),3)
+
+round(prop.table(data, margin = 2),3)
+
+barplot(prop.table(data, margin = 1),
+        beside = TRUE, col = c("black","brown","red","gold"),
+        legend.text = T, main = "Frecuencias relativas de colores de\n cabello para cada color de ojos",
+        ylim = c(0,0.8))
+
+barplot(t(prop.table(data, margin = 2)),
+        beside = TRUE, 
+        col = c("burlywood4","lightblue","gold","lightgreen"),
+        legend.text = T, main = "Frecuencias relativas de colores de\n ojos para cada color de pelo",
+        ylim = c(0,0.6))
+
 
 #Datos que no contiene
 HairEyeColor <- data.frame(HairEyeColor)
@@ -16,28 +79,10 @@ table(HairEyeColor)
 HairEyeColor <- data.frame(HairEyeColor)
 
 
-#Grafica de barras (Por cabello, color de ojos y Sexo)
-hair <- aggregate(HairEyeColor$Freq, by=list(Category=HairEyeColor$Hair), FUN=sum)
-barplot(hair[,2], width = 1, xlab = "Hair", ylab = "Cantidad", names.arg = hair[,1])
-
-
-eyes <- aggregate(HairEyeColor$Freq, by=list(Category=HairEyeColor$Eye), FUN=sum)
-barplot(eyes[,2], width = 1, xlab = "Eyes", ylab = "Cantidad", names.arg = eyes[,1])
-
-
-sex <- aggregate(HairEyeColor$Freq, by=list(Category=HairEyeColor$Sex), FUN=sum)
-barplot(sex[,2], width = 1, xlab = "Sex", ylab = "Cantidad", names.arg = sex[,1])
-
-#Histograma 
-hist(HairEyeColor$Freq,main="Histograma de Frecuencias",xlab="Numero de Frecuencias",ylab="Frecuencia",col="purple")
-
-#Diagrama de dispersion
+#Diagrama de dispersion/caja
 plot(x = HairEyeColor$Sex, y = HairEyeColor$Freq,main="Relacion entre Frecuencia y Sexo")
 plot(x = HairEyeColor$Hair, y = HairEyeColor$Freq,main="Relacion entre Frecuencia y Color de Cabello")
 plot(x = HairEyeColor$Eye, y = HairEyeColor$Freq,main="Relacion entre Frequencia y color de ojos")
-
-#Diagrama de caja 
-boxplot(x = HairEyeColor$Freq,main="Distribucion del numero de frecuencias de la base de datos")
 
 
 
@@ -103,4 +148,3 @@ ggplot(data = mm, aes(x = interaction(Hair, Eye), y = value, fill = interaction(
   geom_bar(stat = 'identity') + facet_grid(Sex ~ .) + 
   theme(legend.position = 'none') + 
   scale_fill_manual(values = cols)
-
